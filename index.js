@@ -4,14 +4,17 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const request = require('request')
 const app = express()
+const https = require('https')
+const fs = require('fs')
 
-app.set('port', (process.env.PORT || 5000))
+app.set('port', (process.env.PORT || 443))
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended: false}))
 
 // parse application/json
 app.use(bodyParser.json())
+
 
 // index
 app.get('/', function (req, res) {
@@ -123,7 +126,9 @@ function sendGenericMessage(sender) {
 	})
 }
 
+
 // spin spin sugar
-app.listen(app.get('port'), function() {
-	console.log('running on port', app.get('port'))
-})
+https.createServer({
+        key: fs.readFileSync("/etc/letsencrypt/live/goaltracker.us/privkey.pem"),
+        cert: fs.readFileSync("/etc/letsencrypt/live/goaltracker.us/fullchain.pem")
+    }, app).listen(443);
