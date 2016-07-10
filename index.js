@@ -59,7 +59,21 @@ app.post('/webhook/', function (req, res) {
 const pageAccessToken = "EAAYv0vhTxk4BAC3LcTowQsjXtCWqWytg3rZCAa3e5b0oOTHNByZByPiRkg5UAxBDCml0aUi4aIuq62wgTw0L4I43tIf5f32x2rvjqfZB0D53ZB3OXVJolmu3nnTDn4yBf4ho5YG9sYHZBEE1UX2fEBL9tekoWe3gD2T4pdLxfFgZDZD"
 
 function sendTextMessage(sender, text) {
-	let messageData = { text:text }
+	let messageData = {
+		text:text,
+		quick_replies: [
+      {
+        "content_type":"text",
+        "title":"Red",
+        "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
+      },
+      {
+        "content_type":"text",
+        "title":"Green",
+        "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_GREEN"
+      }
+    ]
+	}
 
 	request({
 		url: 'https://graph.facebook.com/v2.6/me/messages',
