@@ -7,6 +7,7 @@ const app = express()
 const https = require('https')
 const fs = require('fs')
 const Sequelize = require('sequelize')
+const path = require("path")
 
 
 // initialize
