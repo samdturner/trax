@@ -4,6 +4,7 @@
 const util = require('util'),
 const path = require('path')
 const constants = require(path.join(__dirname, "./setup/constants"));
+const USER_DOMAIN = 'https://graph.facebook.com/v2.6/1356921494324269';
 
 const request = require('request'),
       pageAccessToken = constants.PAGE_ACCESS_TOKEN,
@@ -81,6 +82,13 @@ module.exports = function(app){
             text: "Your life is about to be changed!  What goal would you like to start tracking?",
             quick_replies: GOAL_OPTIONS
           });
+
+          request
+          .get(`${USER_DOMAIN}?access_token=${pageAccessToken}`)
+          .on('response', function(response) {
+            console.log(response);
+            console.log(response.body); // 200
+          })
         }
 
         if(event.message.quick_reply) {
