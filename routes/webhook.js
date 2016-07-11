@@ -59,6 +59,7 @@ module.exports = function(app){
 
 	// to post data
 	app.post('/webhook/', function (req, res) {
+    console.log('In POST request');
 		let messaging_events = req.body.entry[0].messaging
 
 		//Test DB Connection
