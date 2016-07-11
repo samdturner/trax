@@ -71,19 +71,21 @@ module.exports = function(app){
           });
         }
 
-        switch (event.message.quick_reply.payload) {
-          case 'GOAL_GYM' || 'GOAL_WAKE_UP':
-            sendTextMessage(sender, {
-              text: "Great, and how often would you like me to check in?",
-              quick_replies: FREQUENCY_OPTIONS
-            });
-            break;
-          case 'FREQUENCY_WEEKDAYS' || 'FREQUENCY_WEEKENDS' || 'FREQUENCY_EVERY_DAY':
-            sendTextMessage(sender, {
-              text: "Thanks, your dreams are only a few taps away!"
-            });
-            break;
-          default:
+        if(event.message.quick_reply) {
+          switch (event.message.quick_reply.payload) {
+            case 'GOAL_GYM' || 'GOAL_WAKE_UP':
+              sendTextMessage(sender, {
+                text: "Great, and how often would you like me to check in?",
+                quick_replies: FREQUENCY_OPTIONS
+              });
+              break;
+            case 'FREQUENCY_WEEKDAYS' || 'FREQUENCY_WEEKENDS' || 'FREQUENCY_EVERY_DAY':
+              sendTextMessage(sender, {
+                text: "Thanks, your dreams are only a few taps away!"
+              });
+              break;
+            default:
+          }
         }
 			}
 			if (event.postback) {
