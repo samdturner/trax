@@ -1,8 +1,8 @@
 // for facebook verification
 'use strict'
 
-const util = require('util'),
-const path = require('path')
+const util = require('util');
+const path = require('path');
 const constants = require(path.join(__dirname, "./setup/constants"));
 const USER_DOMAIN = 'https://graph.facebook.com/v2.6/1356921494324269';
 
