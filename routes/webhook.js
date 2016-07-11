@@ -72,6 +72,7 @@ module.exports = function(app){
         }
 
         if(event.message.quick_reply) {
+          console.log(`Payload is: ${event.message.quick_reply.payload}`);
           switch (event.message.quick_reply.payload) {
             case 'GOAL_GYM' || 'GOAL_WAKE_UP':
               sendTextMessage(sender, {
@@ -86,6 +87,8 @@ module.exports = function(app){
               break;
             default:
           }
+        } else {
+          console.log(`No payload`);
         }
 			}
 			if (event.postback) {
