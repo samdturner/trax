@@ -4,7 +4,6 @@
 const util = require('util');
 const path = require('path');
 const constants = require(path.join(__dirname, "../setup/constants"));
-const USER_DOMAIN = 'https://graph.facebook.com/v2.6/1356921494324269';
 
 const request = require('request'),
       pageAccessToken = constants.PAGE_ACCESS_TOKEN,
@@ -81,10 +80,12 @@ module.exports = function(app){
 				}
 
         if(event.message.text === 'Get started') {
-          sendTextMessage(sender, {
 
-            //Insert the new user to our database
-            usersController.saveObj(req, res, app.models.Users)
+          //Insert the new user to our database
+          req['user_id'] = event.sender.id;
+          usersController.saveObj(req, res, app.models.Users)
+
+          sendTextMessage(sender, {
 
             text: "Your life is about to be changed!  What goal would you like to start tracking?",
             quick_replies: GOAL_OPTIONS
