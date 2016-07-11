@@ -31,7 +31,8 @@ module.exports = function(app){
 					sendGenericMessage(sender)
 					continue
 				}
-				sendTextMessage(sender, "Text received, echo: " + text.substring(0, 200))
+        let currentCount = event.message.metadata.count || 0;
+				sendTextMessage(sender, "The count is currently: " + currentCount, currentCount + 1)
 			}
 			if (event.postback) {
 				let text = JSON.stringify(event.postback)
@@ -47,7 +48,7 @@ module.exports = function(app){
 	// const token = process.env.PAGE_ACCESS_TOKEN
 	const pageAccessToken = "EAAYv0vhTxk4BAC3LcTowQsjXtCWqWytg3rZCAa3e5b0oOTHNByZByPiRkg5UAxBDCml0aUi4aIuq62wgTw0L4I43tIf5f32x2rvjqfZB0D53ZB3OXVJolmu3nnTDn4yBf4ho5YG9sYHZBEE1UX2fEBL9tekoWe3gD2T4pdLxfFgZDZD";
 
-	function sendTextMessage(sender, text) {
+	function sendTextMessage(sender, text, newCount = 0) {
 		let messageData = {
       text:text,
       quick_replies: [
@@ -61,7 +62,8 @@ module.exports = function(app){
           "title":"Green",
           "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_GREEN"
         }
-      ]
+      ],
+      metadata: { count: newCount }
     }
 
 		request({
