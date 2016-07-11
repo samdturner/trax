@@ -9,7 +9,6 @@ const fs = require('fs')
 const Sequelize = require('sequelize')
 const path = require("path")
 
-
 // initialize
 var init = require(path.join(__dirname, "./setup/init"));
 var constants = require(path.join(__dirname, "./setup/constants"));
