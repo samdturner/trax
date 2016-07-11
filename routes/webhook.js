@@ -1,8 +1,40 @@
 // for facebook verification
+'use strict'
 
 const util = require('util'),
       path = require('path'),
       request = require('request')
+
+const GOAL_OPTIONS = [
+                        {
+                          "content_type": "text",
+                          "title": "Go to the gym",
+                          "payload": "GOAL_GYM"
+                        },
+                        {
+                          "content_type": "text",
+                          "title": "Wake up early",
+                          "payload": "GOAL_WAKE_UP"
+                        }
+                    ];
+
+const FREQUENCY_OPTIONS = [
+                        {
+                          "content_type": "text",
+                          "title": "Weekdays",
+                          "payload": "FREQUENCY_WEEKDAYS"
+                        },
+                        {
+                          "content_type": "text",
+                          "title": "Weekends",
+                          "payload": "FREQUENCY_WEEKENDS"
+                        },
+                        {
+                          "content_type": "text",
+                          "title": "Every day",
+                          "payload": "FREQUENCY_EVERY_DAY"
+                        }
+                    ];
 
 var webhookController  = require(path.join(__dirname,'../controllers/webhookController'));
 
@@ -31,8 +63,28 @@ module.exports = function(app){
 					sendGenericMessage(sender)
 					continue
 				}
-        let metadataString = event.message.metadata || "undefined";
-				sendTextMessage(sender, "The metadata string is: " + metadataString)
+
+        if(event.message.text === 'Get started') {
+          sendTextMessage(sender, {
+            text: "Your life is about to be changed!  What goal would you like to start tracking?",
+            quick_replies: GOAL_OPTIONS
+          });
+        }
+
+        switch (event.message.quick_reply.payload) {
+          case 'GOAL_GYM' || 'GOAL_WAKE_UP':
+            sendTextMessage(sender, {
+              text: "Great, and how often would you like me to check in?",
+              quick_replies: FREQUENCY_OPTIONS
+            });
+            break;
+          case 'FREQUENCY_WEEKDAYS' || 'FREQUENCY_WEEKENDS' || 'FREQUENCY_EVERY_DAY':
+            sendTextMessage(sender, {
+              text: "Thanks, your dreams are only a few taps away!"
+            });
+            break;
+          default:
+        }
 			}
 			if (event.postback) {
 				let text = JSON.stringify(event.postback)
@@ -48,24 +100,7 @@ module.exports = function(app){
 	// const token = process.env.PAGE_ACCESS_TOKEN
 	const pageAccessToken = "EAAYv0vhTxk4BAC3LcTowQsjXtCWqWytg3rZCAa3e5b0oOTHNByZByPiRkg5UAxBDCml0aUi4aIuq62wgTw0L4I43tIf5f32x2rvjqfZB0D53ZB3OXVJolmu3nnTDn4yBf4ho5YG9sYHZBEE1UX2fEBL9tekoWe3gD2T4pdLxfFgZDZD";
 
-	function sendTextMessage(sender, text) {
-		let messageData = {
-      text:text,
-      quick_replies: [
-        {
-          "content_type":"text",
-          "title":"Red",
-          "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_RED"
-        },
-        {
-          "content_type":"text",
-          "title":"Green",
-          "payload":"DEVELOPER_DEFINED_PAYLOAD_FOR_PICKING_GREEN"
-        }
-      ],
-      metadata: "this is metadata!!"
-    }
-
+	function sendTextMessage(sender, messageData) {
 		request({
 			url: 'https://graph.facebook.com/v2.6/me/messages',
 			qs: {access_token:pageAccessToken},

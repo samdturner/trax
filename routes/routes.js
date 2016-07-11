@@ -1,3 +1,4 @@
+'use strict'
 /*
     mount all routes
 */
@@ -22,5 +23,5 @@ module.exports = function(app){
     sendReports(app);
     webhook(app);
     askQns(app);
-    
+
 }
