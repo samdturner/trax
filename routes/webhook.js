@@ -43,6 +43,8 @@ const FREQUENCY_OPTIONS = [
 
 var webhookController  = require(path.join(__dirname,'../controllers/webhookController'));
 var testController  = require(path.join(__dirname,'../controllers/testController'));
+var usersController  = require(path.join(__dirname,'../controllers/usersController'));
+
 
 
 module.exports = function(app){
@@ -80,16 +82,15 @@ module.exports = function(app){
 
         if(event.message.text === 'Get started') {
           sendTextMessage(sender, {
+
+            //Insert the new user to our database
+            usersController.saveObj(req, res, app.models.Users)
+
             text: "Your life is about to be changed!  What goal would you like to start tracking?",
             quick_replies: GOAL_OPTIONS
           });
 
-          request(`${USER_DOMAIN}?access_token=${pageAccessToken}`, function(error, response, body) {
-            if (!error && response.statusCode == 200) {
-              console.log(response);
-              console.log(body);
-            }
-          })
+
           // .get(`${USER_DOMAIN}?access_token=${pageAccessToken}`)
           // .on('response', function(response) {
           //   console.log(response);
