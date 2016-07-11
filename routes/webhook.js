@@ -1,7 +1,8 @@
 // for facebook verification
 
-var util = require('util'),
-    path = require('path');
+const util = require('util'),
+      path = require('path'),
+      request = require('request')
 
 var webhookController  = require(path.join(__dirname,'../controllers/webhookController'));
 
