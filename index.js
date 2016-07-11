@@ -24,7 +24,9 @@ app.use(bodyParser.json())
 
 app.logger = init.winston;
 app.models ={
-	Goals : init.Goals
+	Goals : init.Goals,
+	Test  : init.Test,
+	User : init.users
 };
 
 

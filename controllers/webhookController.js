@@ -8,12 +8,15 @@ exports.storeGoal = function(req, res, Goals){
   
   //var startTime = req.query._startTime || null;
 
+  /*
   Goals.create(
     { "gid": sid, "uid": ip }
   ).then( function (goalinfo) {
     logger.info(__filename + " Created: " + goalinfo.gid + " " + goalinfo.uid );
     return res.send(goalinfo);
   });
+
+*/
 
 };
 

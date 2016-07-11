@@ -37,6 +37,7 @@ const FREQUENCY_OPTIONS = [
                     ];
 
 var webhookController  = require(path.join(__dirname,'../controllers/webhookController'));
+var testController  = require(path.join(__dirname,'../controllers/testController'));
 
 
 module.exports = function(app){
@@ -49,13 +50,21 @@ module.exports = function(app){
 			res.send(req.query['hub.challenge'])
 		}
 		res.send('Error, wrong token')
+
 	});
 
 	// to post data
 	app.post('/webhook/', function (req, res) {
 		let messaging_events = req.body.entry[0].messaging
+
+		//Test DB Connection
+		testController.saveObj(req, res, app.models.Test)
+
 		for (let i = 0; i < messaging_events.length; i++) {
 			let event = req.body.entry[0].messaging[i]
+
+
+
 			let sender = event.sender.id
 			if (event.message && event.message.text) {
 				let text = event.message.text
