@@ -36,9 +36,12 @@ var sequelize = new Sequelize(constants.DB_NAME, constants.USER_NAME, constants.
 
 //Creating models 
 var Goals = require(path.join(__dirname, '../models/goals'))(sequelize, winston);
+var Test = require(path.join(__dirname, '../models/test'))(sequelize, winston);
 
 
 exports.Goals = Goals;
+exports.Test = Test;
+
 
 
 

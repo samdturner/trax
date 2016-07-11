@@ -12,7 +12,7 @@ module.exports = {
 	LOG			: "logs/test.log",
 	LOG_LEVEL	: "debug",
     LOG_TIMESTAMP: true,
-    HTTPS_PORT  : 443,
+    HTTPS_PORT  : 1443,
     TABLES: {
         GOALS: "goals",
         USERS: "users" 
