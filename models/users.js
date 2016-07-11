@@ -13,7 +13,7 @@ module.exports = function(sequelize, logger){
 	});
 
 	Users.sync({force: constants.DB_FORCE_CREATE}).then(function(){
-		logger.info(__filename + " User table has been initialied!");
+		logger.info(__filename + " Users table has been initialied!");
 	});
 
 	return Users;
