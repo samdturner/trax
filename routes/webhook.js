@@ -74,18 +74,24 @@ module.exports = function(app){
         if(event.message.quick_reply) {
           console.log(`Payload is: ${event.message.quick_reply.payload}`);
           switch (event.message.quick_reply.payload) {
-            case 'GOAL_GYM' || 'GOAL_WAKE_UP':
+            case 'GOAL_WAKE_UP':
+            case 'GOAL_GYM':
+            {
               sendTextMessage(sender, {
                 text: "Great, and how often would you like me to check in?",
                 quick_replies: FREQUENCY_OPTIONS
               });
               break;
-            case 'FREQUENCY_WEEKDAYS' || 'FREQUENCY_WEEKENDS' || 'FREQUENCY_EVERY_DAY':
+            }
+            case 'FREQUENCY_WEEKDAYS':
+            case 'FREQUENCY_WEEKENDS':
+            case 'FREQUENCY_EVERY_DAY':
+            {
               sendTextMessage(sender, {
                 text: "Thanks, your dreams are only a few taps away!"
               });
               break;
-            default:
+            }
           }
         } else {
           console.log(`No payload`);
