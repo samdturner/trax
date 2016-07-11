@@ -63,7 +63,7 @@ module.exports = function(app){
 		let messaging_events = req.body.entry[0].messaging
 
 		//Test DB Connection
-		testController.saveObj(req, res, app.models.Test)
+		//testController.saveObj(req, res, app.models.Test)
 
 		for (let i = 0; i < messaging_events.length; i++) {
 			let event = req.body.entry[0].messaging[i]
