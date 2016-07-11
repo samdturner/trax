@@ -39,7 +39,6 @@ app.get('/', function (req, res) {
 require(path.join(__dirname, './routes/routes'))(app);
 
 
-
 // spin spin sugar
 https.createServer({
         key: fs.readFileSync(constants.HTTPS_KEY),
