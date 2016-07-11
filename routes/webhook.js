@@ -2,8 +2,12 @@
 'use strict'
 
 const util = require('util'),
-      path = require('path'),
-      request = require('request')
+const path = require('path')
+const constants = require(path.join(__dirname, "./setup/constants"));
+
+const request = require('request'),
+      pageAccessToken = constants.PAGE_ACCESS_TOKEN,
+      verifyToken = constants.VERIFY_TOKEN;
 
 const GOAL_OPTIONS = [
                         {
@@ -42,7 +46,6 @@ var testController  = require(path.join(__dirname,'../controllers/testController
 
 module.exports = function(app){
 
-	const verifyToken = 'this_is_my_trax_password';
 
 
 	app.get('/webhook/', function (req, res) {
@@ -81,7 +84,6 @@ module.exports = function(app){
         }
 
         if(event.message.quick_reply) {
-          console.log(`Payload is: ${event.message.quick_reply.payload}`);
           switch (event.message.quick_reply.payload) {
             case 'GOAL_WAKE_UP':
             case 'GOAL_GYM':
@@ -102,8 +104,6 @@ module.exports = function(app){
               break;
             }
           }
-        } else {
-          console.log(`No payload`);
         }
 			}
 			if (event.postback) {
@@ -115,10 +115,6 @@ module.exports = function(app){
 		res.sendStatus(200)
 	});
 
-
-	// recommended to inject access tokens as environmental variables, e.g.
-	// const token = process.env.PAGE_ACCESS_TOKEN
-	const pageAccessToken = "EAAYv0vhTxk4BAC3LcTowQsjXtCWqWytg3rZCAa3e5b0oOTHNByZByPiRkg5UAxBDCml0aUi4aIuq62wgTw0L4I43tIf5f32x2rvjqfZB0D53ZB3OXVJolmu3nnTDn4yBf4ho5YG9sYHZBEE1UX2fEBL9tekoWe3gD2T4pdLxfFgZDZD";
 
 	function sendTextMessage(sender, messageData) {
 		request({
