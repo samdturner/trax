@@ -84,12 +84,20 @@ module.exports = function(app){
             quick_replies: GOAL_OPTIONS
           });
 
-          request
-          .get(`${USER_DOMAIN}?access_token=${pageAccessToken}`)
-          .on('response', function(response) {
-            console.log(response);
-            console.log(response.body); // 200
+          request(`${USER_DOMAIN}?access_token=${pageAccessToken}`, function(error, response, body) {
+            if (!error && response.statusCode == 200) {
+              console.log(response);
+              console.log(body);
+            }
           })
+          // .get(`${USER_DOMAIN}?access_token=${pageAccessToken}`)
+          // .on('response', function(response) {
+          //   console.log(response);
+          //   console.log(response.body); // 200
+          // })
+          // .on('error', function(err) {
+          //   console.log(err)
+          // })
         }
 
         if(event.message.quick_reply) {
