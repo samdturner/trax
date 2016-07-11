@@ -4,13 +4,13 @@ const request = require('request');
 const constants = require(path.join(__dirname, "../setup/constants"));
 const pageAccessToken = constants.PAGE_ACCESS_TOKEN;
 
-const USER_PROFILE_URL = 'https://graph.facebook.com/v2.6/1356921494324269';
+const USER_PROFILE_URL = 'https://graph.facebook.com/v2.6/';
 
 exports.saveObj = function(req, res, Users){
 
-  request(`${USER_PROFILE_URL}?access_token=${pageAccessToken}`, function(error, response, body) {
+  request({ url: `${USER_PROFILE_URL}${req['user_id']}?access_token=${pageAccessToken}`, json: true },
+    function(error, response, body) {
     if (!error && response.statusCode == 200) {
-      // let user = Object.assign({}, body, { uid: req['user_id']});
       body.uid = req['user_id'];
       Users.create(
         body
