@@ -31,7 +31,10 @@ module.exports = function(app){
 					sendGenericMessage(sender)
 					continue
 				}
-        let currentCount = event.message.metadata.count || 0;
+        let currentCount = 0;
+        if(event.message.metadata) {
+          currentCount = event.message.metadata.count || 0;
+        }
 				sendTextMessage(sender, "The count is currently: " + currentCount, currentCount + 1)
 			}
 			if (event.postback) {
