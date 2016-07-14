@@ -26,7 +26,8 @@ app.logger = init.winston;
 app.models ={
 	Goals : init.Goals,
 	Test  : init.Test,
-	Users : init.Users
+	Users : init.Users,
+	Progress: init.Progress
 };
 
 

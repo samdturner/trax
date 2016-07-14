@@ -38,10 +38,13 @@ var sequelize = new Sequelize(constants.DB_NAME, constants.USER_NAME, constants.
 var Goals = require(path.join(__dirname, '../models/goals'))(sequelize, winston);
 var Test = require(path.join(__dirname, '../models/test'))(sequelize, winston);
 var Users = require(path.join(__dirname, '../models/users'))(sequelize, winston);
+var Progress = require(path.join(__dirname, '../models/Progress'))(sequelize, winston);
+
 
 exports.Goals = Goals;
 exports.Test = Test;
 exports.Users = Users;
+exports.Progress = Progress;
 
 
 
