@@ -1,9 +1,9 @@
 // for facebook verification
 'use strict'
 
-const util = require('util'),
-const path = require('path')
-const constants = require(path.join(__dirname, "./setup/constants"));
+const util = require('util');
+const path = require('path');
+const constants = require(path.join(__dirname, "../setup/constants"));
 
 const request = require('request'),
       pageAccessToken = constants.PAGE_ACCESS_TOKEN,
@@ -42,6 +42,8 @@ const FREQUENCY_OPTIONS = [
 
 var webhookController  = require(path.join(__dirname,'../controllers/webhookController'));
 var testController  = require(path.join(__dirname,'../controllers/testController'));
+var usersController  = require(path.join(__dirname,'../controllers/usersController'));
+
 
 
 module.exports = function(app){
@@ -58,10 +60,11 @@ module.exports = function(app){
 
 	// to post data
 	app.post('/webhook/', function (req, res) {
+    console.log('In POST request');
 		let messaging_events = req.body.entry[0].messaging
 
 		//Test DB Connection
-		testController.saveObj(req, res, app.models.Test)
+		//testController.saveObj(req, res, app.models.Test)
 
 		for (let i = 0; i < messaging_events.length; i++) {
 			let event = req.body.entry[0].messaging[i]
@@ -77,10 +80,26 @@ module.exports = function(app){
 				}
 
         if(event.message.text === 'Get started') {
+
+          //Insert the new user to our database
+          req['user_id'] = event.sender.id;
+          usersController.saveObj(req, res, app.models.Users)
+
           sendTextMessage(sender, {
+
             text: "Your life is about to be changed!  What goal would you like to start tracking?",
             quick_replies: GOAL_OPTIONS
           });
+
+
+          // .get(`${USER_DOMAIN}?access_token=${pageAccessToken}`)
+          // .on('response', function(response) {
+          //   console.log(response);
+          //   console.log(response.body); // 200
+          // })
+          // .on('error', function(err) {
+          //   console.log(err)
+          // })
         }
 
         if(event.message.quick_reply) {
