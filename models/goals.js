@@ -5,7 +5,7 @@ module.exports = function(sequelize, logger){
 	var Goals = sequelize.define('goals', {
 		gid: Sequelize.STRING,
 		uid: Sequelize.STRING,
-		defination: Sequelize.STRING,
+		title: Sequelize.STRING,
 		freq: Sequelize.STRING,
 		is_active: Sequelize.BOOLEAN
 	});
