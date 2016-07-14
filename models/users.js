@@ -3,7 +3,10 @@ var constants = require(path.join(__dirname, '../setup/constants'));
 
 module.exports = function(sequelize, logger){
 	var Users = sequelize.define('users', {
-		uid: Sequelize.STRING,
+		uid: {
+			Sequelize.STRING,
+			primaryKey: true
+			 },
 		first_name: Sequelize.STRING,
 		last_name: Sequelize.STRING,
 		profile_pic: Sequelize.STRING,
